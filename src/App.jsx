@@ -825,12 +825,7 @@ const DashboardPage = ({ user }) => {
           </div>
         )}
 
-        {tab==="referral"&&(()=>{
-          const { referrals } = useApp();
-          const myRefs = referrals.filter(r => r.referrerCode === user?.referral_code);
-          const earned = myRefs.filter(r=>r.status==="confirmed").length * 50;
-          const pendingCount = myRefs.filter(r=>r.status==="pending").length;
-          return <>
+        {tab==="referral"&&<>
           <div style={{background:"linear-gradient(135deg,rgba(139,92,246,.1),rgba(124,58,237,.16))",border:"1px solid var(--b2)",borderRadius:"var(--r)",padding:"26px",marginBottom:18}}>
             <div style={{display:"flex",gap:13,alignItems:"flex-start",flexWrap:"wrap"}}>
               <div style={{fontSize:36}}>🎁</div>
@@ -848,7 +843,7 @@ const DashboardPage = ({ user }) => {
             </div>
           </div>
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(145px,1fr))",gap:13,marginBottom:18}}>
-            {[[myRefs.length,"Total Referrals","👥",""],[`₹${earned}`,"Earned from Refs","💰","var(--grn)"],[pendingCount,"Pending Refs","⏳","var(--gold)"],["₹50/ref","Bonus Rate","🎯",""]].map(([v,l,ic,c])=>(
+            {[[myRefs.length,"Total Referrals","👥",""],[`₹${refEarned}`,"Earned from Refs","💰","var(--grn)"],[refPending,"Pending Refs","⏳","var(--gold)"],["₹50/ref","Bonus Rate","🎯",""]].map(([v,l,ic,c])=>(
               <div key={l} className="stat">
                 <div style={{fontSize:21,marginBottom:5}}>{ic}</div>
                 <div style={{fontSize:11,fontWeight:700,color:"var(--t3)",textTransform:"uppercase",letterSpacing:".07em",marginBottom:5}}>{l}</div>
@@ -890,8 +885,7 @@ const DashboardPage = ({ user }) => {
               ))}
             </div>
           </div>
-          </>;
-        })()}
+          </>}
       </div>
     </section>
   );
